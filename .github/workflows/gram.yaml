@@ -1,4 +1,4 @@
-name: CLI Test
+name: Deploy to gram
 
 on:
   pull_request:
@@ -19,9 +19,9 @@ jobs:
         with:
           go-version: "1.23"
 
-      - name: "Install and Push"
+      - name: Install and Push
         env:
           GRAM_API_KEY: ${{ secrets.GRAM_API_KEY }}
         run: |
-          go install github.com/speakeasy-api/gram/server/cmd/cli/gram@0.0.1-alpha.1
+          go install github.com/speakeasy-api/gram/server/cmd/cli/gram@v0.0.1-alpha.1
           gram push --project cj-2 --file ./fixtures/gram.json
