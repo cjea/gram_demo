@@ -1,0 +1,24 @@
+{
+    "schema_version": "1.0.0",
+    "type": "deployment",
+    "sources": [
+        {
+            "type": "openapiv3",
+            "location": "./petstore.yaml",
+            "name": "CJ's Petstore (remote)",
+            "slug": "cjs-petstore"
+        },
+        {
+            "type": "openapiv3",
+            "location": "./symphony.json",
+            "name": "Night at the Symphony",
+            "slug": "symphony"
+        },
+        {
+            "type": "openapiv3",
+            "location": "https://raw.githubusercontent.com/speakeasy-api/gram/refs/heads/main/server/gen/http/openapi3.yaml",
+            "name": "Gram Official API",
+            "slug": "gram-official"
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+name: CLI Test
+
+on:
+  pull_request:
+    branches:
+      - main
+      - cli
+
+jobs:
+  hello:
+    name: Iterate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23"
+
+      - name: "Install and Push"
+        env:
+          GRAM_API_KEY: ${{ secrets.GRAM_API_KEY }}
+        run: |
+          go install github.com/speakeasy-api/gram/server/cmd/cli/gram@0.0.1-alpha.1
+          gram push --project cj --file ./fixtures/gram.json
