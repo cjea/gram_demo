@@ -23,5 +23,5 @@ jobs:
         env:
           GRAM_API_KEY: ${{ secrets.GRAM_API_KEY }}
         run: |
-          go install github.com/speakeasy-api/gram/server/cmd/cli/gram@v0.1.2
+          go install github.com/speakeasy-api/gram/server/cmd/cli/gram@latest
           gram push --project cj --file ./fixtures/gram.json
