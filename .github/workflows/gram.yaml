@@ -4,24 +4,25 @@ on:
   pull_request:
     branches:
       - main
-      - cli
 
 jobs:
-  hello:
-    name: Iterate
+  push-deployment:
+    name: Push deployment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: "1.23"
+      # For the full list of releases: `brew install speakeasy-api/homebrew-tap/gram`
+      - name: Install gram
+        run: |
+          curl -fsSL -o gram.zip https://github.com/speakeasy-api/gram/releases/download/0.2.0/gram_linux_amd64.zip
+          unzip gram.zip gram
+          chmod +x gram
+          sudo mv gram /usr/local/bin/
 
-      - name: Install and Push
+      - name: Push to gram
         env:
           GRAM_API_KEY: ${{ secrets.GRAM_API_KEY }}
         run: |
-          go install github.com/speakeasy-api/gram/server/cmd/cli/gram@latest
-          gram push --project cj --file ./fixtures/gram.json
+          gram push --project cj --config ./fixtures/gram.json --idempotency-key="$(uuidgen)"
